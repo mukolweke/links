@@ -1,67 +1,56 @@
 <template>
-    <div class="container">
-        <div class="panel panel-success">
-            <div class="panel-body">
-                <div class="row container">
-                    <table class="table table-striped">
-                        <thead>
-                        <th>Name</th>
-                        <th>Nickname</th>
-                        <th>Sex</th>
-                        <th>Action</th>
-                        </thead>
-
-                        <tr v-for="intern in interns">
-                            <td>{{ intern.name }}</td>
-                            <td>{{ intern.nickname }}</td>
-                            <td>{{ intern.sex }}</td>
-                            <td><button class="btn btn-info" type="button" @click="loadView(intern.id)">View</button></td>
-                        </tr>
-                        <br>
-                    </table>
-                </div>
-            </div>
+    <div>
+        <div>
+            <h2>Meetings</h2>
+            <table class="table striped table-bordered">
+                <tr v-for="meeting in meetings" :key="meeting.id">
+                    <td>
+                        <button class="btn btn-info" type="button" @click="loadView(meeting.id)">{{ meeting.name }}
+                        </button>
+                    </td>
+                    <td>{{ meeting.start_time }}</td>
+                    <td>{{ meeting.end_time }}</td>
+                    <td>{{ meeting.id }}</td>
+                </tr>
+            </table>
         </div>
-        <div class="panel panel-info" v-if="showView">
-            <div class="panel-body">
-                <div class="row container">
-                    <h4>{{intern.name}}</h4>
-                    <p>{{intern.nickname}}</p>
-                    <p>{{intern.sex}}</p>
-                </div>
+
+        <div v-if="showView">
+            <div>
+                <p>{{ meeting.name }}</p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+
     export default {
         data() {
             return {
-                interns: [
-                    { id: 1, name: 'Joan Eneki', nickname: 'Cyborg', sex: 'F'},
-                    { id: 2, name: 'Michael Mukolwe', nickname: 'kuku', sex: 'M' },
-                    { id: 3, name: 'Emmanuel Ogoma', nickname: 'C-sharp', sex: 'M' }
-                ],
-
+                meetings: [],
+                meeting: {},
                 showView: false,
-
-                intern: {}
-
             }
         },
-
+        mounted() {
+            this.getMeetings();
+        },
         methods: {
+            getMeetings() {
+                axios.get('/api/simplemeetings')
+                    .then(response => {
+                            this.meetings = response.data;
+                        }
+                    )
+            },
             loadView: function (id) {
-                // write an api to take the id and bring data save to intern{}
-                // intern = data.response...then we display the intern on the hidden panel...
-                // so onclick the id will change...if this method doesn't work you can use a watcher or computed property...
-
                 this.showView = true;
-
-                this.intern = {
-                    id: 2, name: 'Michael Mukolwe', nickname: 'kuku', sex: 'M'
-                }
+                axios.get('/api/meetings')
+                    .then(response => {
+                            this.meeting = response.data;
+                        }
+                    )
             }
         }
     }
