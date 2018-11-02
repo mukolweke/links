@@ -46408,10 +46408,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+    data: function data() {
+        return {
+            interns: [{ id: 1, name: 'Joan Eneki', nickname: 'Cyborg', sex: 'F' }, { id: 2, name: 'Michael Mukolwe', nickname: 'kuku', sex: 'M' }, { id: 3, name: 'Emmanuel Ogoma', nickname: 'C-sharp', sex: 'M' }],
+
+            showView: false,
+
+            intern: {}
+
+        };
+    },
+
+
+    methods: {
+        loadView: function loadView(id) {
+            // write an api to take the id and bring data save to intern{}
+            // intern = data.response...then we display the intern on the hidden panel...
+            // so onclick the id will change...if this method doesn't work you can use a watcher or computed property...
+
+            this.showView = true;
+
+            this.intern = {
+                id: 2, name: 'Michael Mukolwe', nickname: 'kuku', sex: 'M'
+            };
+        }
     }
 });
 
@@ -46423,29 +46465,78 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "panel panel-success" }, [
+      _c("div", { staticClass: "panel-body" }, [
+        _c("div", { staticClass: "row container" }, [
+          _c(
+            "table",
+            { staticClass: "table table-striped" },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._l(_vm.interns, function(intern) {
+                return _c("tr", [
+                  _c("td", [_vm._v(_vm._s(intern.name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(intern.nickname))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(intern.sex))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-info",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.loadView(intern.id)
+                          }
+                        }
+                      },
+                      [_vm._v("View")]
+                    )
+                  ])
+                ])
+              }),
+              _vm._v(" "),
+              _c("br")
+            ],
+            2
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _vm.showView
+      ? _c("div", { staticClass: "panel panel-info" }, [
+          _c("div", { staticClass: "panel-body" }, [
+            _c("div", { staticClass: "row container" }, [
+              _c("h4", [_vm._v(_vm._s(_vm.intern.name))]),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(_vm.intern.nickname))]),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(_vm.intern.sex))])
+            ])
+          ])
+        ])
+      : _vm._e()
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
-      ])
+    return _c("thead", [
+      _c("th", [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Nickname")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Sex")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Action")])
     ])
   }
 ]

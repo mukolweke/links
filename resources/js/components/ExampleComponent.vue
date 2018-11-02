@@ -1,13 +1,33 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card card-default">
-                    <div class="card-header">Example Component</div>
+        <div class="panel panel-success">
+            <div class="panel-body">
+                <div class="row container">
+                    <table class="table table-striped">
+                        <thead>
+                        <th>Name</th>
+                        <th>Nickname</th>
+                        <th>Sex</th>
+                        <th>Action</th>
+                        </thead>
 
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
+                        <tr v-for="intern in interns">
+                            <td>{{ intern.name }}</td>
+                            <td>{{ intern.nickname }}</td>
+                            <td>{{ intern.sex }}</td>
+                            <td><button class="btn btn-info" type="button" @click="loadView(intern.id)">View</button></td>
+                        </tr>
+                        <br>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-info" v-if="showView">
+            <div class="panel-body">
+                <div class="row container">
+                    <h4>{{intern.name}}</h4>
+                    <p>{{intern.nickname}}</p>
+                    <p>{{intern.sex}}</p>
                 </div>
             </div>
         </div>
@@ -16,8 +36,33 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        data() {
+            return {
+                interns: [
+                    { id: 1, name: 'Joan Eneki', nickname: 'Cyborg', sex: 'F'},
+                    { id: 2, name: 'Michael Mukolwe', nickname: 'kuku', sex: 'M' },
+                    { id: 3, name: 'Emmanuel Ogoma', nickname: 'C-sharp', sex: 'M' }
+                ],
+
+                showView: false,
+
+                intern: {}
+
+            }
+        },
+
+        methods: {
+            loadView: function (id) {
+                // write an api to take the id and bring data save to intern{}
+                // intern = data.response...then we display the intern on the hidden panel...
+                // so onclick the id will change...if this method doesn't work you can use a watcher or computed property...
+
+                this.showView = true;
+
+                this.intern = {
+                    id: 2, name: 'Michael Mukolwe', nickname: 'kuku', sex: 'M'
+                }
+            }
         }
     }
 </script>
